@@ -53,7 +53,7 @@ class BuscaminasApp extends PolymerElement {
           color: antiquewhite;
         }
         .zero {
-          background-color: red;
+          background-color: black;
           color: black;
         }
         .row{
