@@ -26,39 +26,68 @@ class BuscaminasApp extends PolymerElement {
   static get template() {
     return html`
       <style>
-        :host {
-          display: inline-block;
-        }
+      :host {
+        display: inline-block;
+      }
 
-        .mina{
-          border: 1px solid black;
-          padding: .5rem;
-          cursor: pointer;
-        }
+      .mina{
+        border: 1px solid #797D7F;
+        box-shadow: 1px 1px 0 0 #000000;
+        padding: .5rem;
+        cursor: pointer;
+      }
 
-        .container{
-          display: inline-block;
-        }
+      .container{
+        display: inline-block;
+        background-color: #D7DBDD;
+      }
 
-        .mina:hover {background-color: #3e8e41}
+      .mina:hover {background-color: #34495E}
 
-        .mina:active {
-          background-color: #3e8e41;
-          box-shadow: 0 5px #666;
-          transform: translateY(4px);
-        }
+      .mina:active {
+        background-color: #3e8e41;
+        box-shadow: 0 5px #AAB7B8;
+        transform: translateY(4px);
+      }
 
-        .show{
-          background-color: black;
-          color: antiquewhite;
-        }
-        .zero {
-          background-color: black;
-          color: black;
-        }
-        .row{
-          display: table-cell;
-        }
+      .show{
+        background-color: black;
+        color: antiquewhite;
+      }
+      .zero {
+        background-color: transaparent;
+        color: transparent;
+        border: 1px solid transparent;
+        box-shadow: 1px 1px 0 0 inset;
+      }
+      .row{
+        display: table-cell;
+      }
+
+             .warm1 {
+        color: green;
+      }
+             .warm2 {
+        color: blue;
+      }
+      .warm3 {
+          color: pink;
+      }
+             .warm4 {
+        color: red;
+      }
+             .warm5 {
+        color: skyblue;
+      }
+             .warm6 {
+        color: orange;
+      }
+             .warm7 {
+        color: brown;
+      }
+             .warm8 {
+        color: purple;
+      }
       </style>
 
       <div class="container">
@@ -112,50 +141,19 @@ class BuscaminasApp extends PolymerElement {
         console.log(this.matriz[column][row]);
       } else {
         console.log('es un 0');
-        if (column >= 0 && column < this.matriz.length && row >= 0 && row < this.matriz[column].length) {
-          for (let columnsearch = column - 1; columnsearch <= column + 1; columnsearch++) {
-            if (row !== 0) {
-              for (let rowsearch = row - 1; rowsearch <= row + 1; rowsearch++) {
-                if(columnsearch <= this.matriz.length - 1){
-                  if (rowsearch <= this.matriz[column].length - 1) {
-                    if (this.matriz[columnsearch][rowsearch].value === 0) {
-                      console.log('encontré 0!');
-                      console.log(this.matriz[columnsearch][rowsearch]);
-                      this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).className = 'mina zero';
-                    }
-                  } else {
-                    this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch-1).className = 'mina zero';
-                  }
-                } else{
-                  if (rowsearch <= this.matriz[column].length - 1) {
-                    this.shadowRoot.children.item(1).children.item(columnsearch-1).children.item(rowsearch).className = 'mina zero';
-                  }else{
-                    this.shadowRoot.children.item(1).children.item(columnsearch-1).children.item(rowsearch-1).className = 'mina zero';
-                  }
-                }
-                
-              }
-            } else {
-              for (let rowsearch = row; rowsearch <= row; rowsearch++) {
+          let columnminor = (column >= 0) ? (column!==0 ) ? column - 1: column : column;
+          let rowminor = (row >= 0) ? (row!==0 ) ? row - 1: row : row;
+          let columnmayor = (column < this.matriz.length - 1) ? (column !== this.matriz.length) ? column+1 : column : column;
+          let rowmayor = (row < this.matriz[column].length - 1) ? (row !== this.matriz[column].length)? row+1: row : row;
+          for (let columnsearch = columnminor; columnsearch <= columnmayor; columnsearch++) {
+              for (let rowsearch = rowminor; rowsearch <= rowmayor; rowsearch++) {
                 if (this.matriz[columnsearch][rowsearch].value === 0) {
-                  console.log('encontré 0!');
-                  console.log(this.matriz[columnsearch][rowsearch]);
-                  this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).className = 'mina zero';
-                }
+                    console.log('encontré 0!');
+                    console.log(this.matriz[columnsearch][rowsearch]);
+                    this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).className = 'mina zero';
+                  }
               }
-            }
           }
-        } else {
-          for (let columnsearch = column - 1; columnsearch <= column; columnsearch++) {
-            for (let rowsearch = row - 1; rowsearch <= row; rowsearch++) {
-              if (this.matriz[columnsearch][rowsearch].value === 0) {
-                console.log('encontré 0!');
-                console.log(this.matriz[columnsearch][rowsearch]);
-                this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).className = 'mina zero';
-              }
-            }
-          }
-        }
       }
     }
   }
@@ -187,7 +185,8 @@ class BuscaminasApp extends PolymerElement {
     let rowFormatted = [];
     rowFormatted = row.map((ele, a) => {
       let classMine = (ele.show) ? 'show' : 'hide';
-      return `<div class="mina ${classMine}" id="${a}">${ele.value}</div>`
+      let warmclass = (ele.value>0) ? `warm${ele.value}`: '';
+      return `<div class="mina ${classMine} ${warmclass}" id="${a}">${ele.value}</div>`
     });
     rowFormatted = rowFormatted.join('');
     return rowFormatted;
