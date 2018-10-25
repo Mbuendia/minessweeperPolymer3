@@ -71,7 +71,7 @@ class BuscaminasApp extends PolymerElement {
         color: blue;
       }
       .warm3 {
-          color: pink;
+          color: orange;
       }
              .warm4 {
         color: red;
@@ -141,10 +141,11 @@ class BuscaminasApp extends PolymerElement {
         console.log(this.matriz[column][row]);
       } else {
         console.log('es un 0');
-          let columnminor = (column >= 0) ? (column!==0 ) ? column - 1: column : column;
-          let rowminor = (row >= 0) ? (row!==0 ) ? row - 1: row : row;
-          let columnmayor = (column < this.matriz.length - 1) ? (column !== this.matriz.length) ? column+1 : column : column;
-          let rowmayor = (row < this.matriz[column].length - 1) ? (row !== this.matriz[column].length)? row+1: row : row;
+        for (let index = 1; index < this.matriz.length; index++) {
+          let columnminor = (column >= 0) ? (column!==0 ) ? column - index: column : column;
+          let rowminor = (row >= 0) ? (row!==0 ) ? row - index: row : row;
+          let columnmayor = (column < this.matriz.length - 1) ? (column !== this.matriz.length) ? column + index : column : column;
+          let rowmayor = (row < this.matriz[column].length - 1) ? (row !== this.matriz[column].length)? row + index: row : row;
           for (let columnsearch = columnminor; columnsearch <= columnmayor; columnsearch++) {
               for (let rowsearch = rowminor; rowsearch <= rowmayor; rowsearch++) {
                 if (this.matriz[columnsearch][rowsearch].value === 0) {
@@ -154,6 +155,9 @@ class BuscaminasApp extends PolymerElement {
                   }
               }
           }
+          
+        }
+          
       }
     }
   }
@@ -176,7 +180,7 @@ class BuscaminasApp extends PolymerElement {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
     let selection = ev.currentTarget.root.getSelection();
-    if (selection.type !== 'Range') {
+    if (selection.type !== 'Range' && selection.baseNode.parentElement.classList[1] !== 'zero' && selection.baseNode.parentElement.classList[1] !== 'show') {
       this._checkBomb(selection);
     }
   }
