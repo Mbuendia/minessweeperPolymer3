@@ -1,0 +1,72 @@
+.mina {
+  color: #D7DBDD;
+  background-color: #D7DBDD;
+  border: 1px solid #797D7F;
+  box-shadow: 0 1px solid #000000 inset;
+  padding: .5rem;
+  cursor: pointer;
+  color: transparent;
+}
+
+.container {
+  border: 2px solid black;
+  display: inline-block;
+}
+
+.mina:hover {
+  background-color: #34495E
+}
+
+.mina:active {
+  background-color: #3e8e41;
+  transform: translateY(4px);
+}
+
+.show {
+  border: 1px solid #D5DBDB;
+  background-color: #EAEDED;
+  box-shadow: 0 1px solid #797D7F inset;
+  cursor: default;
+}
+
+.zero {
+  border: 1px solid;
+  background-color: #EAEDED;
+  color: transparent;
+}
+
+.row {
+  display: table-cell;
+}
+
+.warm1 {
+  color: green;
+}
+
+.warm2 {
+  color: blue;
+}
+
+.warm3 {
+  color: orange;
+}
+
+.warm4 {
+  color: red;
+}
+
+.warm5 {
+  color: skyblue;
+}
+
+.warm6 {
+  color: orange;
+}
+
+.warm7 {
+  color: brown;
+}
+
+.warm8 {
+  color: purple;
+}

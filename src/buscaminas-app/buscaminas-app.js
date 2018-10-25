@@ -1,5 +1,7 @@
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { } from '@polymer/polymer/lib/elements/dom-repeat.js';
+
+
 /**
  * @customElement
  * @polymer
@@ -26,68 +28,81 @@ class BuscaminasApp extends PolymerElement {
   static get template() {
     return html`
       <style>
-      :host {
-        display: inline-block;
-      }
-
-      .mina{
-        border: 1px solid #797D7F;
-        box-shadow: 1px 1px 0 0 #000000;
-        padding: .5rem;
-        cursor: pointer;
-      }
-
-      .container{
-        display: inline-block;
-        background-color: #D7DBDD;
-      }
-
-      .mina:hover {background-color: #34495E}
-
-      .mina:active {
-        background-color: #3e8e41;
-        box-shadow: 0 5px #AAB7B8;
-        transform: translateY(4px);
-      }
-
-      .show{
-        background-color: black;
-        color: antiquewhite;
-      }
-      .zero {
-        background-color: transaparent;
-        color: transparent;
-        border: 1px solid transparent;
-        box-shadow: 1px 1px 0 0 inset;
-      }
-      .row{
-        display: table-cell;
-      }
-
-             .warm1 {
-        color: green;
-      }
-             .warm2 {
-        color: blue;
-      }
-      .warm3 {
-          color: pink;
-      }
-             .warm4 {
-        color: red;
-      }
-             .warm5 {
-        color: skyblue;
-      }
-             .warm6 {
-        color: orange;
-      }
-             .warm7 {
-        color: brown;
-      }
-             .warm8 {
-        color: purple;
-      }
+        :host {
+          display: inline-block;
+        }
+        .mina {
+          color: #D7DBDD;
+          background-color: #D7DBDD;
+          border: 1px solid #797D7F;
+          box-shadow: 0 1px solid #000000 inset;
+          padding: .5rem;
+          cursor: pointer;
+          color: transparent;
+        }
+        
+        .container {
+          border: 2px solid black;
+          display: inline-block;
+        }
+        
+        .mina:hover {
+          background-color: #34495E
+        }
+        
+        .mina:active {
+          background-color: #3e8e41;
+          transform: translateY(4px);
+        }
+        
+        .show {
+          border: 1px solid #D5DBDB;
+          background-color: #EAEDED;
+          box-shadow: 0 1px solid #797D7F inset;
+          cursor: default;
+        }
+        
+        .zero {
+          border: 1px solid;
+          background-color: #EAEDED;
+          color: transparent;
+        }
+        
+        .row {
+          display: table-cell;
+        }
+        
+        .warm1 {
+          color: green;
+        }
+        
+        .warm2 {
+          color: blue;
+        }
+        
+        .warm3 {
+          color: orange;
+        }
+        
+        .warm4 {
+          color: red;
+        }
+        
+        .warm5 {
+          color: skyblue;
+        }
+        
+        .warm6 {
+          color: orange;
+        }
+        
+        .warm7 {
+          color: brown;
+        }
+        
+        .warm8 {
+          color: purple;
+        }
       </style>
 
       <div class="container">
@@ -141,10 +156,10 @@ class BuscaminasApp extends PolymerElement {
         console.log(this.matriz[column][row]);
       } else {
         console.log('es un 0');
-          let columnminor = (column >= 0) ? (column!==0 ) ? column - 1: column : column;
-          let rowminor = (row >= 0) ? (row!==0 ) ? row - 1: row : row;
-          let columnmayor = (column < this.matriz.length - 1) ? (column !== this.matriz.length) ? column+1 : column : column;
-          let rowmayor = (row < this.matriz[column].length - 1) ? (row !== this.matriz[column].length)? row+1: row : row;
+          let columnminor = (column >= 0) ? (column!==0 ) ? column - 1 : column : column;
+          let rowminor = (row >= 0) ? (row!==0 ) ? row - 1 : row : row;
+          let columnmayor = (column < this.matriz.length - 1) ? (column !== this.matriz.length) ? column + 1 : column : column;
+          let rowmayor = (row < this.matriz[column].length - 1) ? (row !== this.matriz[column].length)? row + 1: row : row;
           for (let columnsearch = columnminor; columnsearch <= columnmayor; columnsearch++) {
               for (let rowsearch = rowminor; rowsearch <= rowmayor; rowsearch++) {
                 if (this.matriz[columnsearch][rowsearch].value === 0) {
@@ -176,7 +191,7 @@ class BuscaminasApp extends PolymerElement {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
     let selection = ev.currentTarget.root.getSelection();
-    if (selection.type !== 'Range') {
+    if (selection.type !== 'Range' && selection.baseNode.parentElement.classList[1] !== 'zero' && selection.baseNode.parentElement.classList[1] !== 'show') {
       this._checkBomb(selection);
     }
   }
