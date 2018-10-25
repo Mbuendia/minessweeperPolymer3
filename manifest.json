@@ -1,0 +1,7 @@
+{
+  "name": "buscaminas",
+  "short_name": "buscaminas",
+  "description": "un buscaminas chachi",
+  "start_url": "/",
+  "display": "standalone"
+}
