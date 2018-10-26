@@ -149,26 +149,29 @@ class BuscaminasApp extends PolymerElement {
   _checkNonMines(mine, domCell) {
     let column = parseInt(mine.mineColumn);
     let row = parseInt(mine.mineRow);
-    if (!this.matriz[column][row].show) {
       if (mine.mineValue !== '0') {
-        this.matriz[column][row].show = true;
-        domCell.baseNode.parentElement.className = 'mina show'
-        console.log(this.matriz[column][row]);
+        domCell.baseNode.parentElement.className = 'mina show';
       } else {
-        console.log('es un 0');
-          let columnminor = (column >= 0) ? (column!==0 ) ? column - 1 : column : column;
-          let rowminor = (row >= 0) ? (row!==0 ) ? row - 1 : row : row;
-          let columnmayor = (column < this.matriz.length - 1) ? (column !== this.matriz.length) ? column + 1 : column : column;
-          let rowmayor = (row < this.matriz[column].length - 1) ? (row !== this.matriz[column].length)? row + 1: row : row;
-          for (let columnsearch = columnminor; columnsearch <= columnmayor; columnsearch++) {
-              for (let rowsearch = rowminor; rowsearch <= rowmayor; rowsearch++) {
-                if (this.matriz[columnsearch][rowsearch].value === 0) {
-                    console.log('encontré 0!');
-                    console.log(this.matriz[columnsearch][rowsearch]);
-                    this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).className = 'mina zero';
-                  }
-              }
+        this._doMalla(column, row, mine, domCell);
+      }
+  }
+
+  _doMalla(column, row, mine, domCell) {
+    for (let columnsearch = column - 1; columnsearch <= column + 1; columnsearch++) {
+      for (let rowsearch = row - 1; rowsearch <= row + 1; rowsearch++) {
+        if (new Position(columnsearch, rowsearch)._validPositionInMatrix(this.matriz)) {
+          if (this.matriz[columnsearch][rowsearch].value === 0) {
+            if (this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).className !== 'mina zero') {
+              this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).className = 'mina zero';
+              Object.assign(mine, { mineValue: this.matriz[columnsearch][rowsearch].value.toString(), mineRow: rowsearch, mineColumn: columnsearch});
+              this._checkNonMines(mine, domCell);
+              console.log(mine);
+            }
           }
+          else {
+            this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).className = 'mina show';
+          }
+        }
       }
     }
   }
@@ -177,7 +180,7 @@ class BuscaminasApp extends PolymerElement {
     let value = bomb.baseNode.data;
     let row = this._getRow(bomb);
     let column = this._getColum(bomb);
-    let mine = { mineValue: value, mineRow: row, mineColumn: column, show: false };
+    let mine = { mineValue: value, mineRow: row, mineColumn: column };
     if (mine.mineValue === 'b') {
       new Notification('bomba!', {});
       this.init();
@@ -208,8 +211,8 @@ class BuscaminasApp extends PolymerElement {
   }
 
   init() {
-    let multiplo = 12;
-    let minas = 10;
+    let multiplo = 16;
+    let minas = 40;
     let matriz = [];
     for (let index = 0; index < multiplo; ++index) {
       let row = [];
