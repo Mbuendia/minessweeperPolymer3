@@ -39,6 +39,14 @@ class BuscaminasApp extends PolymerElement {
           padding: .5rem;
           cursor: pointer;
           color: transparent;
+          width: 13px;
+          height: 13px;
+        }
+
+        .bomb{
+          background: center;
+          content: url(../src/buscaminas-app/assets/bomb.jpg);
+          
         }
         
         .container {
@@ -150,7 +158,7 @@ class BuscaminasApp extends PolymerElement {
     let column = parseInt(mine.mineColumn);
     let row = parseInt(mine.mineRow);
       if (mine.mineValue !== '0') {
-        domCell.baseNode.parentElement.className = 'mina show';
+        domCell.baseNode.parentElement.className = `mina show warm${domCell.baseNode.parentElement.innerText}`;
       } else {
         this._doMalla(column, row, mine, domCell);
       }
@@ -169,7 +177,7 @@ class BuscaminasApp extends PolymerElement {
             }
           }
           else {
-            this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).className = 'mina show';
+            this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).className = `mina show warm${this.shadowRoot.children.item(1).children.item(columnsearch).children.item(rowsearch).innerText}`;
           }
         }
       }
@@ -177,13 +185,15 @@ class BuscaminasApp extends PolymerElement {
   }
 
   _checkBomb(bomb) {
-    let value = bomb.baseNode.data;
+    let value = bomb.baseNode.data;       
     let row = this._getRow(bomb);
     let column = this._getColum(bomb);
     let mine = { mineValue: value, mineRow: row, mineColumn: column };
     if (mine.mineValue === 'b') {
       new Notification('bomba!', {});
-      this.init();
+      this.shadowRoot.children.item(1).children.item(column).children.item(row).className='mina show bomb';
+      //setTimeout(this.init(), 10000);
+      
     } else {
       this._checkNonMines(mine, bomb);
     }
@@ -203,8 +213,7 @@ class BuscaminasApp extends PolymerElement {
     let rowFormatted = [];
     rowFormatted = row.map((ele, a) => {
       let classMine = (ele.show) ? 'show' : 'hide';
-      let warmclass = (ele.value>0) ? `warm${ele.value}`: '';
-      return `<div class="mina ${classMine} ${warmclass}" id="${a}">${ele.value}</div>`
+      return `<div class="mina ${classMine}" id="${a}">${ele.value}</div>`
     });
     rowFormatted = rowFormatted.join('');
     return rowFormatted;

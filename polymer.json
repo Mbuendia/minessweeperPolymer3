@@ -4,5 +4,19 @@
     "rules": [
       "polymer-3"
     ]
-  }
+  },
+  "entrypoint": "index.html",
+  "shell": "src/buscaminas-app/buscaminas-app.js",
+  "sources": [
+    "src/**.js",
+    "manifest/**",
+    "package.json",
+    "src/buscaminas-app/assets/*"
+  ],
+  "extraDependencies": [
+    "manifest.json",
+    "node_modules/@webcomponents/webcomponentsjs/bundles/**"
+  ],
+  "builds": [{
+    "name": "mybuild", "preset": "es5-bundled", "bundle": true }]
 }

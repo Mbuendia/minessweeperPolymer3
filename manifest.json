@@ -1,7 +1,19 @@
 {
-  "name": "buscaminas",
-  "short_name": "buscaminas",
-  "description": "un buscaminas chachi",
-  "start_url": "/",
-  "display": "standalone"
+  "name": "Buscaminas",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Ejemplo de extensión de Google Chrome que muestra tus datos en Foros del Web.",
+  "icons": {
+     "16": "src/buscaminas-app/assets/bomb.jpg"
+            },
+  "browser_action": {
+    "default_title": "Buscaminas",
+    "default_icon": "./src/buscaminas-app/assets/bomb.jpg"
+  },
+  "browser_action": {
+    "default_title": "Buscaminas",
+    "default_icon": "./src/buscaminas-app/assets/bomb.jpg",
+    "default_popup": "index.html"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
