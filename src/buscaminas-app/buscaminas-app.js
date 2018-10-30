@@ -15,6 +15,10 @@ class Position {
   _validPositionInMatrix(matriz) {
     return this.row >= 0 && this.row < matriz.length && this.column >= 0 && this.column < matriz[this.row].length;
   }
+
+  _checkPosition(bombPosition) {
+    return this.row === bombPosition.row && this.column === bombPosition.column;
+  }
 }
 
 class Cell {
@@ -35,23 +39,26 @@ class BuscaminasApp extends PolymerElement {
           color: #D7DBDD;
           background-color: #D7DBDD;
           border: 1px solid #797D7F;
-          box-shadow: 0 1px solid #000000 inset;
           padding: .5rem;
           cursor: pointer;
-          color: transparent;
           width: 13px;
           height: 13px;
+          transition: easy-in 1s 2s;
+          color: transparent;
         }
 
         .bomb{
-          background: center;
-          content: url(../src/buscaminas-app/assets/bomb.jpg);
-          
+          display: flex;
+          font-size: 1em;
+          align-items: center;
+          color: black;
+
+          transition: easy-in 1s 2s;
         }
         
         .container {
           border: 2px solid black;
-          display: inline-block;
+          display: flex;
         }
         
         .mina:hover {
@@ -66,12 +73,11 @@ class BuscaminasApp extends PolymerElement {
         .show {
           border: 1px solid #D5DBDB;
           background-color: #EAEDED;
-          box-shadow: 0 1px solid #797D7F inset;
           cursor: default;
         }
         
         .zero {
-          border: 1px solid;
+          border: 1px solid #D5DBDB;
           background-color: #EAEDED;
           color: transparent;
         }
@@ -127,6 +133,11 @@ class BuscaminasApp extends PolymerElement {
       matriz: {
         type: Array,
         value: () => []
+      },
+      multiplo: Number,
+      bombsArray: {
+        type: Array,
+        value: () => []
       }
     };
   }
@@ -163,6 +174,7 @@ class BuscaminasApp extends PolymerElement {
         this._doMalla(column, row, mine, domCell);
       }
   }
+  
 
   _doMalla(column, row, mine, domCell) {
     for (let columnsearch = column - 1; columnsearch <= column + 1; columnsearch++) {
@@ -191,7 +203,12 @@ class BuscaminasApp extends PolymerElement {
     let mine = { mineValue: value, mineRow: row, mineColumn: column };
     if (mine.mineValue === 'b') {
       new Notification('bomba!', {});
-      this.shadowRoot.children.item(1).children.item(column).children.item(row).className='mina show bomb';
+      this.bombsArray.forEach(bomb => {
+
+        this.shadowRoot.children.item(1).children.item(bomb.column).children.item(bomb.row).innerHTML ='💣';
+        this.shadowRoot.children.item(1).children.item(bomb.column).children.item(bomb.row).className='mina show bomb';
+      });
+
       //setTimeout(this.init(), 10000);
       
     } else {
@@ -241,6 +258,7 @@ class BuscaminasApp extends PolymerElement {
 
   bombGenerator(matriz, multiplo) {
     let position = this.placeBomb(multiplo);
+    this.push('bombsArray', position);
     matriz[position.column][position.row] = new Cell('b');
     for (let column = -1; column <= 1; column++) {
       for (let row = -1; row <= 1; row++) {
@@ -254,7 +272,11 @@ class BuscaminasApp extends PolymerElement {
     }
   }
   placeBomb(multiplo) {
-    return new Position(Math.floor(Math.random(0, 1) * multiplo), Math.floor(Math.random(0, 1) * multiplo));
+    let bombPosition;
+    do {
+      bombPosition = new Position(Math.floor(Math.random(0, 1) * multiplo), Math.floor(Math.random(0, 1) * multiplo));
+    } while (this.bombsArray.find(bomb => bomb._checkPosition(bombPosition)));
+    return  bombPosition;
   }
 
 }

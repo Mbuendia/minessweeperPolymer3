@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
   <title>Buscaminas</title>
@@ -10,13 +10,18 @@
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval'; object-src 'self'">
   <!-- See https://goo.gl/OOhYW5 -->
   <link rel="manifest" href="/manifest.json">
+  <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
   <script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
   <script type="module" src="/src/buscaminas-app/buscaminas-app.js" crossorigin></script>
 </head>
 
 <body>
-  <h1>Buscaminas</h1>
+  <h1>Buscaminas </h1>
+  <iron-pages selected="[[routeData.view]]" attr-for-selected="name">
+    <h1>menu></h1>
+    <buscaminas-app></buscaminas-app>
+  </iron-pages>
   <buscaminas-app></buscaminas-app>
 </body>
 

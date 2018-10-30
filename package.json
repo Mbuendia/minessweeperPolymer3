@@ -2,6 +2,7 @@
   "name": "buscaminas",
   "description": "un buscaminas chachi",
   "dependencies": {
+    "@polymer/app-route": "^3.0.0-pre.20",
     "@polymer/polymer": "^3.0.0"
   },
   "devDependencies": {
