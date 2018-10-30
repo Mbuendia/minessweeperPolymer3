@@ -3,17 +3,12 @@
   "version": "1.0",
   "manifest_version": 2,
   "description": "Ejemplo de extensión de Google Chrome que muestra tus datos en Foros del Web.",
-  "icons": {
-     "16": "src/buscaminas-app/assets/bomb.jpg"
-            },
   "browser_action": {
-    "default_title": "Buscaminas",
-    "default_icon": "./src/buscaminas-app/assets/bomb.jpg"
+    "default_title": "Buscaminas"
   },
   "browser_action": {
     "default_title": "Buscaminas",
-    "default_icon": "./src/buscaminas-app/assets/bomb.jpg",
     "default_popup": "index.html"
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-qhK4wErWtDvUlAck5a47EVjOU/T6Py7KWYNyB/yZW54=' 'sha256-3urFPy4ifVkUP/ce6xMr6X5wPYp9Rya7gvtsczfetyY=' 'sha256-x1ZA1ltQTd0xkeqcBS4Z176gbC+zWJ/RRFvY2BZ7YWM=' 'sha256-Sc89eFh5NePPky8uGfiwPmjfX0Vhaf+064uEVNfQj68=' 'sha256-b/Z9On434gzWVIfbd3oLKIZymc/sGHj+5SZ/Lfu/Vks='; object-src 'self'"
 }

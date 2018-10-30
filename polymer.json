@@ -10,13 +10,18 @@
   "sources": [
     "src/**.js",
     "manifest/**",
-    "package.json",
-    "src/buscaminas-app/assets/*"
+    "package.json"
   ],
   "extraDependencies": [
     "manifest.json",
     "node_modules/@webcomponents/webcomponentsjs/bundles/**"
   ],
-  "builds": [{
-    "name": "mybuild", "preset": "es5-bundled", "bundle": true }]
+  "builds": [{ 
+    "name": "es6",
+    "preset": "es6-bundled",
+    "js": {"minify": true, "compile": "es2015"},
+    "css": {"minify": true},
+    "html": {"minify": true},
+    "addServiceWorker": false
+  }]
 }
