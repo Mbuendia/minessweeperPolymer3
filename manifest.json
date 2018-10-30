@@ -4,9 +4,6 @@
   "manifest_version": 2,
   "description": "Ejemplo de extensión de Google Chrome que muestra tus datos en Foros del Web.",
   "browser_action": {
-    "default_title": "Buscaminas"
-  },
-  "browser_action": {
     "default_title": "Buscaminas",
     "default_popup": "index.html"
   },
